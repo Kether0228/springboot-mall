@@ -1,10 +1,12 @@
 package com.kether.springbootmall.rowmapper;
 
+import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.model.Product;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 
 public class ProductRowMapper implements RowMapper<Product> {
     @Override
@@ -12,7 +14,8 @@ public class ProductRowMapper implements RowMapper<Product> {
         Product product = new Product();
         product.setProduct_id(rs.getInt("product_id"));
         product.setProduct_name(rs.getString("product_name"));
-        product.setCategory(rs.getString("category"));
+        ProductCategory category = ProductCategory.valueOf(rs.getString("category"));
+        product.setCategory(category);
         product.setImage_url(rs.getString("image_url"));
         product.setPrice(rs.getInt("price"));
         product.setStock(rs.getInt("stock"));

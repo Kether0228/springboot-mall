@@ -1,6 +1,6 @@
 package com.kether.springbootmall.model;
 
-import lombok.Data;
+import com.kether.springbootmall.Constant.ProductCategory;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,7 +13,7 @@ import java.util.Date;
 public class Product {
     private Integer product_id;
     private String product_name;
-    private String category;
+    private ProductCategory category;
     private String image_url;
     private Integer price;
     private Integer stock;
