@@ -27,7 +27,7 @@ public class ProductDaoImpl implements ProductDao {
     public Product getProductById(Integer productId) {
         String sql = "SELECT * FROM product WHERE product_id = :productId";
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("id", productId);
+        map.put("productId", productId);
         List<Product> productList = namedParameterJdbcTemplate.query(
                 sql,
                 map,
@@ -60,10 +60,7 @@ public class ProductDaoImpl implements ProductDao {
 
         namedParameterJdbcTemplate.update(sql,new MapSqlParameterSource(map),keyHolder);
 
-        Integer productId = keyHolder.getKey().intValue();
-
-
-        return productId;
+        return Integer.valueOf(keyHolder.getKey().intValue());
     }
 
     @Override
@@ -91,4 +88,12 @@ public class ProductDaoImpl implements ProductDao {
         map.put("productId", productId);
         namedParameterJdbcTemplate.update(sql,map);
     }
+
+    @Override
+    public List<Product> getAllProduct() {
+        String sql = "SELECT * FROM product";
+        return namedParameterJdbcTemplate.query(sql,new ProductRowMapper());
+    }
+
+
 }
