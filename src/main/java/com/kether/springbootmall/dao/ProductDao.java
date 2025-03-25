@@ -2,7 +2,9 @@ package com.kether.springbootmall.dao;
 
 import com.kether.springbootmall.dto.ProductRequest;
 import com.kether.springbootmall.model.Product;
-import org.springframework.stereotype.Repository;
+
+
+import java.util.List;
 
 
 public interface ProductDao {
@@ -10,4 +12,5 @@ public interface ProductDao {
     Integer createProduct(ProductRequest productRequest);
     void updateProduct(Integer id, ProductRequest productRequest);
     void deleteProduct(Integer id);
+    List<Product> getAllProduct();
 }
