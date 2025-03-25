@@ -7,7 +7,6 @@ import com.kether.springbootmall.rowmapper.ProductRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -65,5 +64,23 @@ public class ProductDaoImpl implements ProductDao {
 
 
         return productId;
+    }
+
+    @Override
+    public void updateProduct(Integer id, ProductRequest productRequest) {
+        String sql = "UPDATE product  SET product_name = :product_name,category = :category, " +
+                "image_url = :image_url,price = :price,stock=:stock,description = :description," +
+                "last_modified_date = :last_modified_date WHERE product_id = :id";
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("product_name", productRequest.getProduct_name());
+        map.put("category", productRequest.getCategory().toString());
+        map.put("image_url", productRequest.getImage_url());
+        map.put("price", productRequest.getPrice());
+        map.put("stock", productRequest.getStock());
+        map.put("description", productRequest.getDescription());
+        Date now = new Date();
+        map.put("last_modified_date", now);
+        namedParameterJdbcTemplate.update(sql,map);
     }
 }
