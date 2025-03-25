@@ -14,9 +14,9 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public Product getProductById(Integer id) {
+    public Product getProductById(Integer productId) {
 
-        return productDao.getProductById(id);
+        return productDao.getProductById(productId);
     }
 
     @Override
@@ -25,7 +25,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(Integer id, ProductRequest productRequest) {
-        productDao.updateProduct(id, productRequest);
+    public void updateProduct(Integer productId, ProductRequest productRequest) {
+        productDao.updateProduct(productId, productRequest);
     }
+
+    @Override
+    public void deleteProduct(Integer productId) {
+        productDao.deleteProduct(productId);
+    }
+
 }

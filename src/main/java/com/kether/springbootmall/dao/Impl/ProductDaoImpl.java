@@ -24,10 +24,10 @@ public class ProductDaoImpl implements ProductDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Product getProductById(Integer id) {
-        String sql = "SELECT * FROM product WHERE product_id = :id";
+    public Product getProductById(Integer productId) {
+        String sql = "SELECT * FROM product WHERE product_id = :productId";
         Map<String,Object> map = new HashMap<String, Object>();
-        map.put("id", id);
+        map.put("id", productId);
         List<Product> productList = namedParameterJdbcTemplate.query(
                 sql,
                 map,
@@ -67,12 +67,12 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void updateProduct(Integer id, ProductRequest productRequest) {
+    public void updateProduct(Integer productId, ProductRequest productRequest) {
         String sql = "UPDATE product  SET product_name = :product_name,category = :category, " +
                 "image_url = :image_url,price = :price,stock=:stock,description = :description," +
-                "last_modified_date = :last_modified_date WHERE product_id = :id";
+                "last_modified_date = :last_modified_date WHERE product_id = :productId";
         Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
+        map.put("id",productId);
         map.put("product_name", productRequest.getProduct_name());
         map.put("category", productRequest.getCategory().toString());
         map.put("image_url", productRequest.getImage_url());
@@ -81,6 +81,14 @@ public class ProductDaoImpl implements ProductDao {
         map.put("description", productRequest.getDescription());
         Date now = new Date();
         map.put("last_modified_date", now);
+        namedParameterJdbcTemplate.update(sql,map);
+    }
+
+    @Override
+    public void deleteProduct(Integer productId) {
+        String sql = "DELETE FROM product WHERE product_id = :productId";
+        Map<String,Object> map = new HashMap<>();
+        map.put("productId", productId);
         namedParameterJdbcTemplate.update(sql,map);
     }
 }
