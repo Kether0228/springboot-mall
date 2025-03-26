@@ -2,6 +2,7 @@ package com.kether.springbootmall.controller;
 
 import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.dto.ProductRequest;
+import com.kether.springbootmall.dto.ProductRequestParams;
 import com.kether.springbootmall.model.Product;
 import com.kether.springbootmall.service.ProductService;
 import jakarta.validation.Valid;
@@ -22,7 +23,10 @@ public class ProductController {
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search
     ) {
-        List<Product> productList =  productService.getProducts(category,search);
+        ProductRequestParams params = new ProductRequestParams();
+        params.setCategory(category);
+        params.setSearch(search);
+        List<Product> productList =  productService.getProducts(params);
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
 

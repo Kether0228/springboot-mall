@@ -3,6 +3,7 @@ package com.kether.springbootmall.service.Impl;
 import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.dao.ProductDao;
 import com.kether.springbootmall.dto.ProductRequest;
+import com.kether.springbootmall.dto.ProductRequestParams;
 import com.kether.springbootmall.model.Product;
 import com.kether.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProducts(ProductCategory category,String search) {
-        return productDao.getProducts(category,search);
+    public List<Product> getProducts(ProductRequestParams Params) {
+        return productDao.getProducts(Params);
     }
 
 }

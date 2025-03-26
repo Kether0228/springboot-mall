@@ -3,6 +3,7 @@ package com.kether.springbootmall.dao.Impl;
 import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.dao.ProductDao;
 import com.kether.springbootmall.dto.ProductRequest;
+import com.kether.springbootmall.dto.ProductRequestParams;
 import com.kether.springbootmall.model.Product;
 import com.kether.springbootmall.rowmapper.ProductRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,18 +93,18 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> getProducts(ProductCategory category,String search) {
+    public List<Product> getProducts(ProductRequestParams params) {
         String sql = "SELECT product_id,product_name,category,image_url,price,stock,description," +
                 "created_date,last_modified_date FROM product WHERE 1=1";
         Map<String,Object> map = new HashMap<String,Object>();
-        if (category != null) {
+        if (params.getCategory() != null) {
             sql += " AND category = :category";
-            map.put("category", category.name());
+            map.put("category", params.getCategory().name());
         }
 
-        if(search != null ){
+        if(params.getSearch() != null ){
             sql += " AND product_name LIKE :search";
-            map.put("search", "%" + search + "%");
+            map.put("search", "%" + params.getSearch() + "%");
         }
 
         return namedParameterJdbcTemplate.query(sql, map , new ProductRowMapper());
