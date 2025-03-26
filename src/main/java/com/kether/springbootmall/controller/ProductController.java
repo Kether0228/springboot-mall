@@ -1,5 +1,6 @@
 package com.kether.springbootmall.controller;
 
+import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.dto.ProductRequest;
 import com.kether.springbootmall.model.Product;
 import com.kether.springbootmall.service.ProductService;
@@ -17,8 +18,11 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(){
-        List<Product> productList =  productService.getAllProduct();
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required = false) ProductCategory category,
+            @RequestParam(required = false) String search
+    ) {
+        List<Product> productList =  productService.getProducts(category,search);
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }
 

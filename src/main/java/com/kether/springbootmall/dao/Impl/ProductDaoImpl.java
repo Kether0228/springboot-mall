@@ -1,5 +1,6 @@
 package com.kether.springbootmall.dao.Impl;
 
+import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.dao.ProductDao;
 import com.kether.springbootmall.dto.ProductRequest;
 import com.kether.springbootmall.model.Product;
@@ -25,7 +26,8 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product getProductById(Integer productId) {
-        String sql = "SELECT * FROM product WHERE product_id = :productId";
+        String sql = "SELECT product_id,product_name,category,image_url,price,stock,description," +
+                "created_date,last_modified_date FROM product WHERE product_id = :productId";
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("productId", productId);
         List<Product> productList = namedParameterJdbcTemplate.query(
@@ -90,9 +92,21 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> getAllProduct() {
-        String sql = "SELECT * FROM product";
-        return namedParameterJdbcTemplate.query(sql,new ProductRowMapper());
+    public List<Product> getProducts(ProductCategory category,String search) {
+        String sql = "SELECT product_id,product_name,category,image_url,price,stock,description," +
+                "created_date,last_modified_date FROM product WHERE 1=1";
+        Map<String,Object> map = new HashMap<String,Object>();
+        if (category != null) {
+            sql += " AND category = :category";
+            map.put("category", category.name());
+        }
+
+        if(search != null ){
+            sql += " AND product_name LIKE :search";
+            map.put("search", "%" + search + "%");
+        }
+
+        return namedParameterJdbcTemplate.query(sql, map , new ProductRowMapper());
     }
 
 

@@ -1,5 +1,6 @@
 package com.kether.springbootmall.dao;
 
+import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.dto.ProductRequest;
 import com.kether.springbootmall.model.Product;
 
@@ -12,5 +13,5 @@ public interface ProductDao {
     Integer createProduct(ProductRequest productRequest);
     void updateProduct(Integer id, ProductRequest productRequest);
     void deleteProduct(Integer id);
-    List<Product> getAllProduct();
+    List<Product> getProducts(ProductCategory category,String search);
 }
