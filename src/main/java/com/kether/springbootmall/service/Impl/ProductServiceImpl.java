@@ -43,4 +43,9 @@ public class ProductServiceImpl implements ProductService {
         return productDao.getProducts(Params);
     }
 
+    @Override
+    public Integer countProduct(ProductRequestParams Params) {
+        return productDao.countProduct(Params);
+    }
+
 }

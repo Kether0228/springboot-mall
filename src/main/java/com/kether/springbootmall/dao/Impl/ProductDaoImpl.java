@@ -1,6 +1,5 @@
 package com.kether.springbootmall.dao.Impl;
 
-import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.dao.ProductDao;
 import com.kether.springbootmall.dto.ProductRequest;
 import com.kether.springbootmall.dto.ProductRequestParams;
@@ -111,8 +110,29 @@ public class ProductDaoImpl implements ProductDao {
         //排序
         sql += " ORDER BY " + params.getOrderBy() + " " + params.getSort();
 
+        //分頁
+        sql += " LIMIT :limit OFFSET :offset";
+        map.put("limit", params.getLimit());
+        map.put("offset", params.getOffset());
 
         return namedParameterJdbcTemplate.query(sql, map , new ProductRowMapper());
+    }
+
+    public Integer countProduct(ProductRequestParams params) {
+        String sql = "SELECT COUNT(*) FROM product WHERE 1=1";
+        Map<String,Object> map = new HashMap<>();
+        //查詢條件
+        if (params.getCategory() != null) {
+            sql += " AND category = :category";
+            map.put("category", params.getCategory().name());
+        }
+
+        if(params.getSearch() != null ){
+            sql += " AND product_name LIKE :search";
+            map.put("search", "%" + params.getSearch() + "%");
+        }
+
+        return namedParameterJdbcTemplate.queryForObject(sql, map ,Integer.class);
     }
 
 
