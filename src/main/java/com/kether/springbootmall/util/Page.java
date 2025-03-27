@@ -14,5 +14,4 @@ public class Page<T> {
     private Integer total;
     private List<T> productList;
 
-
 }
