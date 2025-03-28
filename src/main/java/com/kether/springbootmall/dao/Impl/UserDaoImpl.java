@@ -1,6 +1,7 @@
 package com.kether.springbootmall.dao.Impl;
 
 import com.kether.springbootmall.dao.UserDao;
+import com.kether.springbootmall.dto.UserLoginRequest;
 import com.kether.springbootmall.dto.UserRequest;
 import com.kether.springbootmall.model.User;
 import com.kether.springbootmall.rowmapper.UserRowMapper;
@@ -38,19 +39,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public String loginUser(UserRequest userRequest) {
-        String sql = "SELECT email, password, created_date, last_modified_date" +
-                " FROM user WHERE email = :email and password = :password";
-        Map<String, Object> params = new HashMap<>();
-        params.put("email", userRequest.getEmail());
-        params.put("password", userRequest.getPassword());
-        namedParameterJdbcTemplate.query(sql,params,new UserRowMapper());
-        return "";
-    }
-
-    @Override
     public User getUserByEmail(String email) {
-        String sql = "SELECT email, password, created_date, last_modified_date " +
+        String sql = "SELECT user_id,email, password, created_date, last_modified_date " +
                 "FROM user WHERE email = :email";
         Map<String, Object> params = new HashMap<>();
         params.put("email", email);
@@ -70,11 +60,12 @@ public class UserDaoImpl implements UserDao {
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", user_id);
 
-        List<User> user = namedParameterJdbcTemplate.query(sql,params,new UserRowMapper());
+        List<User> user = namedParameterJdbcTemplate.query(sql,new MapSqlParameterSource(params),new UserRowMapper());
 
         if (user.size()>0) {
             return user.get(0);
         }else
             return null;
     }
+
 }
