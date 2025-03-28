@@ -1,6 +1,5 @@
 package com.kether.springbootmall.util;
 
-import com.kether.springbootmall.model.Product;
 import lombok.Getter;
 import lombok.Setter;
 

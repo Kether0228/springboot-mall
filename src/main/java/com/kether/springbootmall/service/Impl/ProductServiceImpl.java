@@ -1,6 +1,5 @@
 package com.kether.springbootmall.service.Impl;
 
-import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.dao.ProductDao;
 import com.kether.springbootmall.dto.ProductRequest;
 import com.kether.springbootmall.dto.ProductRequestParams;

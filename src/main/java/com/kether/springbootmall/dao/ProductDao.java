@@ -1,10 +1,8 @@
 package com.kether.springbootmall.dao;
 
-import com.kether.springbootmall.Constant.ProductCategory;
 import com.kether.springbootmall.dto.ProductRequest;
 import com.kether.springbootmall.dto.ProductRequestParams;
 import com.kether.springbootmall.model.Product;
-
 
 import java.util.List;
 
