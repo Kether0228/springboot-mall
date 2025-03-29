@@ -1,7 +1,6 @@
 package com.kether.springbootmall.service.Impl;
 
 import com.kether.springbootmall.dao.UserDao;
-import com.kether.springbootmall.dto.UserLoginRequest;
 import com.kether.springbootmall.dto.UserRequest;
 import com.kether.springbootmall.model.User;
 import com.kether.springbootmall.service.UserService;
@@ -42,15 +41,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(UserLoginRequest UserLoginRequest) {
-        UserLoginRequest.setPassword(hashPassword(UserLoginRequest.getPassword()));
-        User user = userDao.getUserByEmail(UserLoginRequest.getEmail());
+    public User login(UserRequest UserRequest) {
+        UserRequest.setPassword(hashPassword(UserRequest.getPassword()));
+        User user = userDao.getUserByEmail(UserRequest.getEmail());
         if (user == null) {
-            log.warn("此email {} 尚未註冊", UserLoginRequest.getEmail());
+            log.warn("此email {} 尚未註冊", UserRequest.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        if (!user.getPassword().equals(UserLoginRequest.getPassword())) {
-            log.warn("email {} 密碼輸入錯誤", UserLoginRequest.getEmail());
+        if (!user.getPassword().equals(UserRequest.getPassword())) {
+            log.warn("email {} 密碼輸入錯誤", UserRequest.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }else{
             return user;

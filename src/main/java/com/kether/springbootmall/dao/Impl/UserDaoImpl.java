@@ -1,7 +1,6 @@
 package com.kether.springbootmall.dao.Impl;
 
 import com.kether.springbootmall.dao.UserDao;
-import com.kether.springbootmall.dto.UserLoginRequest;
 import com.kether.springbootmall.dto.UserRequest;
 import com.kether.springbootmall.model.User;
 import com.kether.springbootmall.rowmapper.UserRowMapper;
@@ -25,8 +24,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Integer createUser(UserRequest userRequest) {
-        String sql = "INSERT INTO user(email, password, created_date, last_modified_date) " +
-                "VALUE (:email, :password, :created_date, :last_modified_date)";
+        String sql = "INSERT INTO `user`(email, password, created_date, last_modified_date) " +
+                "VALUES (:email, :password, :created_date, :last_modified_date)";
         Map<String, Object> params = new HashMap<>();
         params.put("email", userRequest.getEmail());
         params.put("password", userRequest.getPassword());
@@ -41,7 +40,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByEmail(String email) {
         String sql = "SELECT user_id,email, password, created_date, last_modified_date " +
-                "FROM user WHERE email = :email";
+                "FROM `user` WHERE email = :email";
         Map<String, Object> params = new HashMap<>();
         params.put("email", email);
 
@@ -56,7 +55,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserById(Integer user_id) {
         String sql = "SELECT user_id,email, password, created_date, last_modified_date " +
-                "FROM user WHERE user_id = :user_id";
+                "FROM `user` WHERE user_id = :user_id";
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", user_id);
 

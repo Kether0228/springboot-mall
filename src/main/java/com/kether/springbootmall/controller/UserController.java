@@ -1,6 +1,5 @@
 package com.kether.springbootmall.controller;
 
-import com.kether.springbootmall.dto.UserLoginRequest;
 import com.kether.springbootmall.dto.UserRequest;
 import com.kether.springbootmall.model.User;
 import com.kether.springbootmall.service.UserService;
@@ -26,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest UserLoginRequest) {
-        User user = userService.login(UserLoginRequest);
+    public ResponseEntity<User> login(@RequestBody @Valid UserRequest UserRequest) {
+        User user = userService.login(UserRequest);
         if (user != null) {
             return ResponseEntity.status(HttpStatus.OK).body(user);
         }else{

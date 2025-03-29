@@ -13,6 +13,6 @@ public class User {
     private String email;
     @JsonIgnore
     private String password;
-    private Date create_date;
-    private Date last_modify_time;
+    private Date created_date;
+    private Date last_modified_date;
 }
