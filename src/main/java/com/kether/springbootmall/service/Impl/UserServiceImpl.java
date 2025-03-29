@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -28,6 +29,8 @@ public class UserServiceImpl implements UserService {
             log.warn("此 email {} 已被註冊", userRequest.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
+
+       userRequest.setPassword(hashPassword(userRequest.getPassword()));
         //註冊帳號
         return userDao.createUser(userRequest);
     }
@@ -40,6 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(UserLoginRequest UserLoginRequest) {
+        UserLoginRequest.setPassword(hashPassword(UserLoginRequest.getPassword()));
         User user = userDao.getUserByEmail(UserLoginRequest.getEmail());
         if (user == null) {
             log.warn("此email {} 尚未註冊", UserLoginRequest.getEmail());
@@ -51,6 +55,10 @@ public class UserServiceImpl implements UserService {
         }else{
             return user;
         }
+    }
+
+    private String hashPassword(String password) {
+        return DigestUtils.md5DigestAsHex(password.getBytes());
     }
 
 
