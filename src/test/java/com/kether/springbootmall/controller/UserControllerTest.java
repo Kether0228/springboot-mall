@@ -76,9 +76,53 @@ class UserControllerTest {
                 .andExpect(status().is(400));
     }
 
+    //login
+    @Test
+    @Transactional
+    @DisplayName("login-正常登入")
+    void login_Success() throws Exception {
+        UserRequest userRequest = new UserRequest();
+        userRequest.setEmail("test@gmail.com");
+        userRequest.setPassword("test");
+        String json = objectMapper.writeValueAsString(userRequest);
+        RequestBuilder request = MockMvcRequestBuilders.post("/user/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+        mockMvc.perform(request)
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.user_id").isNotEmpty())
+                .andExpect(jsonPath("$.email").value("test@gmail.com"))
+                .andExpect(jsonPath("$.created_date").isNotEmpty())
+                .andExpect(jsonPath("$.last_modified_date").isNotEmpty());
+    }
 
     @Test
     @Transactional
-    void login() {
+    @DisplayName("login-錯誤Email")
+    void login_WrongEmail() throws Exception {
+        UserRequest userRequest = new UserRequest();
+        userRequest.setEmail("Worng@gmail.com");
+        userRequest.setPassword("test");
+        String json = objectMapper.writeValueAsString(userRequest);
+        RequestBuilder request = MockMvcRequestBuilders.post("/user/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+        mockMvc.perform(request)
+                .andExpect(status().is(400));
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("login-錯誤Password")
+    void login_WrongPassword() throws Exception {
+        UserRequest userRequest = new UserRequest();
+        userRequest.setEmail("test@gmail.com");
+        userRequest.setPassword("wrongpassword");
+        String json = objectMapper.writeValueAsString(userRequest);
+        RequestBuilder request = MockMvcRequestBuilders.post("/user/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+        mockMvc.perform(request)
+                .andExpect(status().is(400));
     }
 }
