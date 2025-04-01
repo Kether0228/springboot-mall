@@ -4,6 +4,7 @@ import com.kether.springbootmall.dao.OrderDao;
 import com.kether.springbootmall.dao.ProductDao;
 import com.kether.springbootmall.dto.BuyItem;
 import com.kether.springbootmall.dto.CreateOrderRequest;
+import com.kether.springbootmall.model.Order;
 import com.kether.springbootmall.model.OrderItem;
 import com.kether.springbootmall.model.Product;
 import com.kether.springbootmall.service.OrderService;
@@ -47,4 +48,12 @@ public class OrderServiceImpl implements OrderService {
 
         return orderId;
     }
+
+    @Override
+    public Order getOrderById(Integer orderId) {
+        Order order = orderDao.getOrderById(orderId);
+        order.setOrder_items(orderDao.getOrderItemListByOrderId(orderId));
+        return order;
+    }
+
 }

@@ -11,4 +11,6 @@ public class OrderItem {
     Integer product_id;
     Integer quantity;
     Integer amount;
+    String product_name;
+    String image_url;
 }
