@@ -1,10 +1,11 @@
 package com.kether.springbootmall.dao;
 
 import com.kether.springbootmall.model.OrderItem;
-import com.kether.springbootmall.model.Product;
+
+import java.util.List;
 
 public interface OrderDao {
     Integer createOrder(Integer userId,Integer totalAmount);
-    Integer createOrderItem(OrderItem orderItem);
+    void createOrderItem(Integer orderId,List<OrderItem> orderItemList);
 
 }

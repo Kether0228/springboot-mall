@@ -42,10 +42,8 @@ public class OrderServiceImpl implements OrderService {
         }
         Integer orderId = orderDao.createOrder(userId, totalAmount);
 
-        for (OrderItem orderItem : orderItemList) {
-            orderItem.setOrder_id(orderId);
-            orderDao.createOrderItem(orderItem);
-        }
+        orderDao.createOrderItem(orderId,orderItemList);
+
 
         return orderId;
     }

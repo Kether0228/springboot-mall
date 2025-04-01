@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -37,18 +38,41 @@ public class OrderDaoImpl implements OrderDao {
         return keyHolder.getKey().intValue();
     }
 
+//    @Override
+//    public Integer createOrderItem(OrderItem orderItem) {
+//        String sql = "INSERT INTO order_item (order_id, product_id, quantity, amount)" +
+//                " VALUES (:order_id, :product_id, :quantity, :amount);";
+//        Map<String,Object>  params = new HashMap<>();
+//        params.put("order_id", orderItem.getOrder_id());
+//        params.put("product_id", orderItem.getProduct_id());
+//        params.put("quantity", orderItem.getQuantity());
+//        params.put("amount", orderItem.getAmount());
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(params), keyHolder);
+//
+//        return keyHolder.getKey().intValue();
+//    }
+
     @Override
-    public Integer createOrderItem(OrderItem orderItem) {
+    public void createOrderItem(Integer orderId,List<OrderItem> orderItemList) {
         String sql = "INSERT INTO order_item (order_id, product_id, quantity, amount)" +
                 " VALUES (:order_id, :product_id, :quantity, :amount);";
-        Map<String,Object>  params = new HashMap<>();
-        params.put("order_id", orderItem.getOrder_id());
-        params.put("product_id", orderItem.getProduct_id());
-        params.put("quantity", orderItem.getQuantity());
-        params.put("amount", orderItem.getAmount());
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(params), keyHolder);
 
-        return keyHolder.getKey().intValue();
+        MapSqlParameterSource[] param = new MapSqlParameterSource[orderItemList.size()];
+
+        for (int i = 0; i < orderItemList.size(); i++) {
+            OrderItem orderItem = orderItemList.get(i);
+            param[i] = new MapSqlParameterSource();
+            param[i].addValue("order_id", orderId);
+            param[i].addValue("product_id", orderItem.getProduct_id());
+            param[i].addValue("quantity", orderItem.getQuantity());
+            param[i].addValue("amount", orderItem.getAmount());
+
+        }
+
+        namedParameterJdbcTemplate.batchUpdate(sql,param);
+
     }
+
+
 }
