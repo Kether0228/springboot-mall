@@ -2,7 +2,6 @@ package com.kether.springbootmall.dao.Impl;
 
 import com.kether.springbootmall.dao.OrderDao;
 import com.kether.springbootmall.dto.OrderQueryParams;
-import com.kether.springbootmall.dto.UserRequest;
 import com.kether.springbootmall.model.Order;
 import com.kether.springbootmall.model.OrderItem;
 import com.kether.springbootmall.rowmapper.OrderItemRowMapper;
