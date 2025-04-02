@@ -1,5 +1,6 @@
 package com.kether.springbootmall.dao;
 
+import com.kether.springbootmall.dto.OrderQueryParams;
 import com.kether.springbootmall.model.Order;
 import com.kether.springbootmall.model.OrderItem;
 
@@ -10,5 +11,7 @@ public interface OrderDao {
     void createOrderItem(Integer orderId,List<OrderItem> orderItemList);
     Order getOrderById(Integer orderId);
     List<OrderItem> getOrderItemListByOrderId(Integer orderId);
+    List<Order> getOrder(OrderQueryParams params);
+    Integer countOrder(OrderQueryParams params);
 
 }

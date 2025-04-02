@@ -36,10 +36,10 @@ public class ProductDaoImpl implements ProductDao {
                 new ProductRowMapper()
         );
 
-        if (productList.isEmpty()) {
-            return null;
-        }else{
+        if (productList.size() > 0) {
             return productList.get(0);
+        }else{
+            return null;
         }
 
     }
@@ -119,6 +119,15 @@ public class ProductDaoImpl implements ProductDao {
         return namedParameterJdbcTemplate.queryForObject(sql, map ,Integer.class);
     }
 
+    @Override
+    public void updateStock(Integer id, Integer stock) {
+        String sql = "UPDATE product SET stock = :stock WHERE product_id = :productId";
+        Map<String,Object> map = new HashMap<>();
+        map.put("stock", stock);
+        map.put("productId", id);
+        namedParameterJdbcTemplate.update(sql,map);
+    }
+
     private String addFilterSql(String sql,ProductRequestParams params,Map<String,Object> map) {
         if (params.getCategory() != null) {
             sql += " AND category = :category";
@@ -131,6 +140,8 @@ public class ProductDaoImpl implements ProductDao {
         }
         return sql;
     }
+
+
 
 
 }
