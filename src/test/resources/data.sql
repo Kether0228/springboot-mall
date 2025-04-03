@@ -9,3 +9,11 @@ INSERT INTO product (product_name, category, image_url, price, stock, descriptio
 
 --user //password = test
 INSERT INTO `user`(email,password,created_date,last_modified_date) VALUES ('test@gmail.com','098f6bcd4621d373cade4e832627b4f6','2025-03-29 19:20:05','2025-03-29 19:20:05');
+
+--order
+INSERT INTO `order`(user_id,total_amount,created_date,last_modified_date) VALUES (1,100030,'2022-03-22 23:30:00','2022-03-22 23:30:00');
+
+
+--order_item
+INSERT INTO order_item(order_id,product_id,quantity,amount) VALUES (1,1,1,30);
+INSERT INTO order_item(order_id,product_id,quantity,amount) VALUES (1,4,1,100000);
