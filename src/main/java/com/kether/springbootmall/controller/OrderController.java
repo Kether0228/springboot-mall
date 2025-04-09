@@ -7,6 +7,7 @@ import com.kether.springbootmall.model.User;
 import com.kether.springbootmall.service.OrderService;
 import com.kether.springbootmall.service.UserService;
 import com.kether.springbootmall.util.Page;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -30,6 +31,10 @@ public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
+    @Operation(
+            summary = "建立訂單",
+            description = "使用者可透過此 API 提交訂單資訊，建立新的訂單。"
+    )
     @PostMapping("/user/{userId}/orders")
     public ResponseEntity<Order> createOrder(@PathVariable Integer userId
                                         ,@RequestBody @Valid CreateOrderRequest createOrderRequest) {
@@ -37,7 +42,10 @@ public class OrderController {
         Order order = orderService.getOrderById(orderId);
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
-
+    @Operation(
+            summary = "取得使用者的訂單列表",
+            description = "根據使用者 ID，取得該使用者的歷史訂單清單。可使用 limit 和 offset 參數做分頁查詢。"
+    )
     @GetMapping("/user/{userId}/orders")
     public ResponseEntity<Page<Order>> getOrders(@PathVariable Integer userId
                                                  ,@RequestParam(defaultValue = "5") @Max(20) @Min(1) Integer limit
