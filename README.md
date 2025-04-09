@@ -1,6 +1,6 @@
 # 🛒 SpringBoot Mall 電商後端系統
 
-這是一個使用 Spring Boot 開發的簡易電商後端系統，提供使用者註冊、登入、商品管理、下單與查詢訂單等 RESTful API 功能。可作為學習 Spring Boot、RESTful 架構設計、電商系統流程的參考專案。
+這是一個使用 Spring Boot 開發的練習用簡易電商後端系統，提供使用者註冊、登入、商品管理、下單與查詢訂單等 RESTful API 功能。可作為學習 Spring Boot、RESTful 架構設計、電商系統流程的參考專案。
 
 ## 🚀 專案功能
 
@@ -38,6 +38,6 @@ com.kether.springbootmall │ ├── controller // REST API 控制器 ├─�
 
 ## TODO
 
--新增前端畫面
--JWT驗證
--導入Spring Security
+-新增前端畫面<br>
+-JWT驗證<br>
+-導入Spring Security<br>
