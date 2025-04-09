@@ -33,5 +33,10 @@ com.kether.springbootmall │ ├── controller // REST API 控制器 ├─�
 
 - Java 17+
 - Maven 3.8+
-- MySQL 8（或使用內建 H2）
+- MySQL 8
+- Spring Boot 3.x
 
+## TODO
+-新增前端畫面
+-JWT驗證
+-導入Spring Security
