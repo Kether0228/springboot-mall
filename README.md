@@ -24,11 +24,6 @@
 - Swagger (使用 springdoc-openapi-starter-webmvc-ui)
 - SLF4J + Logback 紀錄日誌
 
-## 📦 架構設計
-
-com.kether.springbootmall │ ├── controller // REST API 控制器 ├── dto // 封裝傳輸資料（Request / Params） ├── model // 資料模型（資料庫對應） ├── service // 商業邏輯處理 ├── util // 分頁工具等 └── config // Swagger 等配置類
-
-
 ## ⚙️ 環境需求
 
 - Java 17+
